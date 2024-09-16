@@ -21,6 +21,8 @@ target/
 mvnw
 mvnw.cmd
 .DS_Store
+.mvn
+wrapper
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

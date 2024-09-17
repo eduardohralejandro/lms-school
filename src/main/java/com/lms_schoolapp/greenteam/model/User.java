@@ -12,17 +12,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @RequiredArgsConstructor
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     @Size(min = 1, max = 100)
     private String firstName;
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     @Size(min = 1, max = 100)
     private String lastName;
-    @Column(unique = true, nullable = false, length = 100)
+    @Column(unique = true, length = 100)
     @Email(message = "Email should be valid and follow this format: student@company.com")
     private String email;
     @Size(min = 8, max = 255)
@@ -31,7 +33,7 @@ public class User {
     private String password;
     @Embedded
     private Address address;
-    @Column(nullable = false)
     @Size(min = 1, max = 30)
     private String telephone;
+    UserType userType;
 }

@@ -71,6 +71,8 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
                 newAdmin.setTypeOfAdmin("ADMIN");
                 newAdmin.setTelephone(user.getTelephone());
                 newAdmin.setAddress(user.getAddress());
+                newAdmin.setUserType(UserType.ADMIN);
+                newAdmin.setActive(true);
                 return (T) newAdmin;
             case STUDENT:
                 Student student = new Student();
@@ -80,6 +82,7 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
                 student.setLastName(user.getLastName());
                 student.setTelephone(user.getTelephone());
                 student.setAddress(user.getAddress());
+                student.setUserType(UserType.STUDENT);
                 return (T) student;
             case TEACHER:
                 Teacher teacher = new Teacher();
@@ -89,6 +92,7 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
                 teacher.setLastName(user.getLastName());
                 teacher.setTelephone(user.getTelephone());
                 teacher.setAddress(user.getAddress());
+                teacher.setUserType(UserType.TEACHER);
                 return (T) teacher;
             default:
                 throw new IllegalArgumentException("Unknown user type: " + userType);

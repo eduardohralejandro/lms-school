@@ -12,9 +12,9 @@ public class CuiApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        adminDashboard.displayInactiveUsers();
-        adminDashboard.activeUser();
-        adminDashboard.activeUsers();
+//        adminDashboard.displayInactiveUsers();
+//        adminDashboard.activeUser();
+//        adminDashboard.activeUsers();
         mainAuthMenu.start();
     }
 

@@ -13,6 +13,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminDashboard {
     private final AdminService adminService;
+    private final UserService<Admin> userAdminService;
+
+    public void start(User loggedInUser) {
+        printWelcomeMessage();
+        System.out.printf("Welcome back: %s %s \n", loggedInUser.getFirstName(), loggedInUser.getLastName());
+        printOptionAdminDashboard((Admin) loggedInUser);
+    }
+
     public void printWelcomeMessage() {
         System.out.println("***************");
         System.out.println("Admin Dashboard");
@@ -20,13 +28,12 @@ public class AdminDashboard {
     }
 
     public void printOptionAdminDashboard(Admin loggedInAdmin) {
-        System.out.printf("Welcome back %s %s", loggedInAdmin.getFirstName(), loggedInAdmin.getLastName());
         boolean continueSelection = false;
         while (!continueSelection) {
             AdminMenuOption option = KeyboardUtility.askForElementInArray(AdminMenuOption.values());
             switch (option) {
                 case ACTIVE_USER -> activeUser();
-                case REGISTER_ADMIN -> registerNewAdmin();
+                case REGISTER_ADMIN -> startAdminRegistration();
                 case ACTIVE_USERS -> activeUsers();
                 case DISPLAY_INACTIVE_USERS -> displayInactiveUsers();
                 case EXIT -> {
@@ -78,6 +85,30 @@ public class AdminDashboard {
         }
     }
 
-    public void registerNewAdmin() {
+    public void startAdminRegistration() {
+        System.out.println("***********************************************");
+        System.out.println("Admin Registration, fill in the required fields");
+        System.out.println("***********************************************");
+        Admin newAdmin = registerNewAdmin();
+        userAdminService.signupUser(newAdmin);
+    }
+
+    public Admin registerNewAdmin() {
+        String firstName = MainAuthMenu.askForFirstName();
+        String lastName = MainAuthMenu.askForLastName();
+        String email = MainAuthMenu.askForEmail();
+        String password = MainAuthMenu.askForPassword();
+        Address address = MainAuthMenu.askForAddress();
+        String telephone = MainAuthMenu.askForTelephone();
+        Admin newUser = new Admin();
+        newUser.setActive(true);
+        newUser.setUserType(UserType.ADMIN);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        newUser.setAddress(address);
+        newUser.setTelephone(telephone);
+        return newUser;
     }
 }

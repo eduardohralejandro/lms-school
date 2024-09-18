@@ -36,4 +36,5 @@ public class User {
     @Size(min = 1, max = 30)
     private String telephone;
     UserType userType;
+    boolean active;
 }

@@ -47,7 +47,7 @@ public class MainMenu {
         if (newUser.getUserType().equals(UserType.TEACHER)) {
             userTeacherService.signupUser((Teacher) newUser);
         }
-        System.out.println("You can now login with your credentials");
+        System.out.println("You can now login with your credentials. Ask administrator to active your account");
     }
 
     public static void welcomeMessage() {

@@ -18,7 +18,11 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
     public T loginUser(String email, String password) {
 
         Optional<T> userFound = Optional.ofNullable(fetchUserByEmail(email));
-
+        if (userFound.isPresent()) {
+            if (!userFound.get().isActive()) {
+                throw new RuntimeException("User: " + email + " is not active. Ask administrator to activate your account.");
+            }
+        }
         if (userFound.isEmpty()) {
             throw new EntityNotFoundException("User with name " + email + " not found");
         }

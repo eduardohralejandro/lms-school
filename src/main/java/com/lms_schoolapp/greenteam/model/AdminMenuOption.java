@@ -5,6 +5,7 @@ public enum AdminMenuOption {
     ACTIVE_USER,
     ACTIVE_USERS,
     DISPLAY_INACTIVE_USERS,
+    CREATE_CLASS_SUBJECT,
     EXIT,
 
 }

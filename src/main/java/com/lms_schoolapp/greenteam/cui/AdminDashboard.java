@@ -3,10 +3,14 @@ package com.lms_schoolapp.greenteam.cui;
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.AdminService;
+import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
 import com.lms_schoolapp.greenteam.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -14,6 +18,7 @@ import java.util.List;
 public class AdminDashboard {
     private final AdminService adminService;
     private final UserService<Admin> userAdminService;
+    private final ClassSchoolSubjectService classSchoolSubjectService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -36,6 +41,7 @@ public class AdminDashboard {
                 case REGISTER_ADMIN -> startAdminRegistration();
                 case ACTIVE_USERS -> activeUsers();
                 case DISPLAY_INACTIVE_USERS -> displayInactiveUsers();
+                case CREATE_CLASS_SUBJECT -> startCreateClassSubject();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -43,6 +49,44 @@ public class AdminDashboard {
             }
         }
     }
+
+    private void startCreateClassSubject() {
+        System.out.println("Create class subject");
+        ClassSchoolSubject classSchoolSubject = buildSubject();
+        classSchoolSubjectService.save(classSchoolSubject);
+        System.out.printf("New class subject created: %s\n", classSchoolSubject.getName());
+    }
+
+    private ClassSchoolSubject buildSubject() {
+        String subjectName = askForSubjectName();
+        String description = askForDescription();
+        String startDate = askForStartDate();
+        String endDate = askForEndDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ClassSchoolSubject newClass = new ClassSchoolSubject();
+        newClass.setName(subjectName);
+        newClass.setDescription(description);
+        newClass.setStartDate(LocalDate.parse(startDate, formatter).atStartOfDay());
+        newClass.setEndDate(LocalDate.parse(endDate, formatter).atStartOfDay());
+        return newClass;
+    }
+
+    public String askForSubjectName() {
+        return KeyboardUtility.askForString("Enter subject name: ");
+    }
+
+    public String askForDescription() {
+        return KeyboardUtility.askForString("Enter subject description: ");
+    }
+
+    public String askForStartDate() {
+        return KeyboardUtility.askForString("Enter startDate (format: yyyy-MM-dd): ");
+    }
+
+    public String askForEndDate() {
+        return KeyboardUtility.askForString("Enter startDate (format: yyyy-MM-dd): ");
+    }
+
 
     public void displayInactiveUsers() {
         System.out.println("**********************");

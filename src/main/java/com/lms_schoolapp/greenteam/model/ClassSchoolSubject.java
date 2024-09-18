@@ -21,10 +21,13 @@ public class ClassSchoolSubject {
     private Long id;
     @Column(nullable = false)
     @Size(min = 1, max = 500)
+    private String name;
+    @Column(nullable = false)
+    @Size(min = 1, max = 500)
     private String description;
     @Column(nullable = false, name = "start_date")
     LocalDateTime startDate;
-    @Column(nullable = false, name = "end_date")
+    @Column(name = "end_date")
     LocalDateTime endDate;
     @ManyToOne
     @JoinColumn(name = "admin_id")

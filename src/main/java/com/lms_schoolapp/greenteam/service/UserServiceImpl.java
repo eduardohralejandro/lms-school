@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -103,5 +104,10 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
             return (T) user;
         }
         return null;
+    }
+
+    @Override
+    public List<T> fetchAllUsers() {
+        return userRepository.findAll();
     }
 }

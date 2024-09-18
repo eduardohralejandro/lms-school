@@ -37,4 +37,19 @@ public class User {
     private String telephone;
     UserType userType;
     boolean active;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address=" + address +
+                ", telephone='" + telephone + '\'' +
+                ", userType=" + userType +
+                ", active=" + active +
+                '}';
+    }
 }

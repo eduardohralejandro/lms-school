@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @Component
 @RequiredArgsConstructor
-public class MainMenu {
+public class MainAuthMenu {
     private final UserService<Teacher> userTeacherService;
     private final UserService<Student> userStudentService;
 

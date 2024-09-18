@@ -11,8 +11,13 @@ import java.util.Arrays;
 @Component
 @RequiredArgsConstructor
 public class MainAuthMenu {
-    private final UserService<Teacher> userTeacherService;
+    private final UserService<User> userService;
     private final UserService<Student> userStudentService;
+    private final UserService<Teacher> userTeacherService;
+    private final UserService<Admin> userAdminService;
+    private final AdminDashboard adminDashboard;
+    private final StudentDashboard studentDashboard;
+    private final TeacherDashboard teacherDashboard;
 
     public void start() {
         welcomeMessage();
@@ -20,6 +25,7 @@ public class MainAuthMenu {
     }
 
     public void printOptionMenu() {
+        mainMenuMessageHeader();
         boolean continueSelection = false;
         while (!continueSelection) {
             MainMenuOption option = KeyboardUtility.askForElementInArray(MainMenuOption.values());
@@ -35,7 +41,13 @@ public class MainAuthMenu {
 
     public void loginUser() {
         User loggedInUser = startLoginUser();
-        System.out.printf("Welcome back: %s %s \n", loggedInUser.getFirstName(), loggedInUser.getLastName());
+        if (loggedInUser.getUserType().equals(UserType.STUDENT)) {
+            studentDashboard.start(loggedInUser);
+        } else if (loggedInUser.getUserType().equals(UserType.TEACHER)) {
+            teacherDashboard.start(loggedInUser);
+        } else if (loggedInUser.getUserType().equals(UserType.ADMIN)) {
+            adminDashboard.start(loggedInUser);
+        }
     }
 
     public void registerUser() {
@@ -47,6 +59,10 @@ public class MainAuthMenu {
         if (newUser.getUserType().equals(UserType.TEACHER)) {
             userTeacherService.signupUser((Teacher) newUser);
         }
+
+        if (newUser.getUserType().equals(UserType.ADMIN)) {
+            userAdminService.signupUser((Admin) newUser);
+        }
         System.out.println("You can now login with your credentials. Ask administrator to active your account");
     }
 
@@ -55,6 +71,13 @@ public class MainAuthMenu {
         System.out.println("Welcome to School Management System");
         System.out.println("************************************");
     }
+
+    public static void mainMenuMessageHeader() {
+        System.out.println("**********");
+        System.out.println("Main menu");
+        System.out.println("**********");
+    }
+
 
     public static String askForFirstName() {
         return KeyboardUtility.askForString("Enter name: ");
@@ -104,8 +127,10 @@ public class MainAuthMenu {
         User newUser;
         if (userType == UserType.STUDENT) {
             newUser = new Student();
+            newUser.setUserType(UserType.STUDENT);
         } else if (userType == UserType.TEACHER) {
             newUser = new Teacher();
+            newUser.setUserType(UserType.TEACHER);
         } else {
             throw new IllegalArgumentException("Unsupported UserType");
         }
@@ -115,7 +140,6 @@ public class MainAuthMenu {
         newUser.setPassword(password);
         newUser.setAddress(address);
         newUser.setTelephone(telephone);
-        newUser.setUserType(userType);
         return newUser;
     }
 
@@ -123,6 +147,6 @@ public class MainAuthMenu {
         System.out.println("Provide credentials to login");
         String email = askForEmail();
         String password = askForPassword();
-        return userTeacherService.loginUser(email, password);
+        return userService.loginUser(email, password);
     }
 }

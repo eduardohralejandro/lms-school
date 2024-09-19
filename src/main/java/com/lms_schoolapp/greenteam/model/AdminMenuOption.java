@@ -8,6 +8,7 @@ public enum AdminMenuOption {
     CREATE_CLASS_SUBJECT,
     DISPLAY_ALL_SUBJECTS,
     ASSIGN_CLASS,
+    DISPLAY_TEACHER_DETAIL,
     EXIT,
 
 }

@@ -10,4 +10,5 @@ public interface TeacherService {
     List<Teacher> findAllTeachers();
     List<Teacher> findByFirstNameContainingIgnoreCase(String name);
     List<Teacher> findByEmailContainingIgnoreCase(String lastName);
+    List<Teacher> getTeachersWithClassDetails();
 }

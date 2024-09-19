@@ -1,9 +1,11 @@
 package com.lms_schoolapp.greenteam.repository;
 
+import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
 import com.lms_schoolapp.greenteam.model.Student;
 import com.lms_schoolapp.greenteam.model.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

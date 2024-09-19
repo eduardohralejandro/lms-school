@@ -38,4 +38,14 @@ public class BookServiceImpl implements BookService {
 
         bookRepository.save(existingBook);
     }
+
+    @Override
+    public List<Book> findByTitleContainingIgnoreCase(String name) {
+        return bookRepository.findByTitleContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Book> findByAuthorContainingIgnoreCase(String authorName) {
+        return bookRepository.findByAuthorContainingIgnoreCase(authorName);
+    }
 }

@@ -55,6 +55,7 @@ public class AdminDashboard {
                 case DISPLAY_ALL_BOOKS -> displayAllBooks();
                 case ADD_BOOK -> startBookCreation();
                 case UPDATE_BOOK_DELETE -> selectOperationOnBook();
+                case SEARCH_BOOK -> searchBook();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -409,6 +410,43 @@ public class AdminDashboard {
             bookService.deleteById(selectedBook.getId());
         } else {
             System.out.println("No book was found");
+        }
+    }
+
+    private void searchBook() {
+        System.out.println("Search book by title or author");
+        boolean continueSelection = false;
+        while (!continueSelection) {
+            BookFilterOption option = (BookFilterOption) KeyboardUtility.askForElementInArray(BookFilterOption.values());
+            switch (option) {
+                case SEARCH_BY_AUTHOR -> startSearchByAuthor();
+                case SEARCH_BY_TITLE -> startSearchByTitle();
+                case EXIT -> {
+                    continueSelection = true;
+                }
+            }
+        }
+    }
+
+    private void startSearchByTitle() {
+        System.out.println("Search book by title");
+        String searchTerm = askForTitle();
+        List<Book> books = bookService.findByTitleContainingIgnoreCase(searchTerm);
+        if (books.isEmpty()) {
+            System.out.println("No book was found");
+        } else {
+            books.forEach(this::bookDetail);
+        }
+    }
+
+    private void startSearchByAuthor() {
+        System.out.println("Search book by author");
+        String searchTerm = askForAuthor();
+        List<Book> books = bookService.findByAuthorContainingIgnoreCase(searchTerm);
+        if (books.isEmpty()) {
+            System.out.println("No book was found");
+        } else {
+            books.forEach(this::bookDetail);
         }
     }
 }

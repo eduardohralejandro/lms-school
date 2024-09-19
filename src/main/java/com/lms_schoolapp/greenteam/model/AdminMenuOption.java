@@ -12,6 +12,7 @@ public enum AdminMenuOption {
     DISPLAY_ALL_BOOKS,
     ADD_BOOK,
     UPDATE_BOOK_DELETE,
+    SEARCH_BOOK,
     EXIT,
 
 }

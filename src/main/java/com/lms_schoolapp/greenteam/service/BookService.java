@@ -9,4 +9,6 @@ public interface BookService {
     void saveBook(Book book);
     void deleteById(Long id);
     void updateBookById(Book book);
+    List<Book> findByTitleContainingIgnoreCase(String name);
+    List<Book> findByAuthorContainingIgnoreCase(String authorName);
 }

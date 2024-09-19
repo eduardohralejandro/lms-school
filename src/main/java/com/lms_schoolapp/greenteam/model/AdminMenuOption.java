@@ -11,6 +11,7 @@ public enum AdminMenuOption {
     DISPLAY_TEACHER_DETAIL,
     DISPLAY_ALL_BOOKS,
     ADD_BOOK,
+    UPDATE_BOOK_DELETE,
     EXIT,
 
 }

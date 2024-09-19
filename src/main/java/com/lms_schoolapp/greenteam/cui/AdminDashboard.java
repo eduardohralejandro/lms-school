@@ -54,6 +54,7 @@ public class AdminDashboard {
                 case DISPLAY_TEACHER_DETAIL -> startDisplayTeacherClasses();
                 case DISPLAY_ALL_BOOKS -> displayAllBooks();
                 case ADD_BOOK -> startBookCreation();
+                case UPDATE_BOOK_DELETE -> selectOperationOnBook();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -359,5 +360,55 @@ public class AdminDashboard {
         Book newBook = createBook();
         bookService.saveBook(newBook);
         System.out.printf("%s was saved to the database \n", newBook.getTitle());
+    }
+
+    void selectOperationOnBook() {
+        bookService.fetchAllBooks();
+        System.out.println("Select operation to update book or delete it");
+        boolean continueSelection = false;
+        while (!continueSelection) {
+            BookOperation option = (BookOperation) KeyboardUtility.askForElementInArray(BookOperation.values());
+            switch (option) {
+                case DELETE_BOOK -> startDeleteBook();
+                case UPDATE_BOOK -> startUpdateBook();
+                case EXIT -> {
+                    continueSelection = true;
+                }
+            }
+        }
+    }
+
+    private void startUpdateBook() {
+        System.out.println("If you don't desire to update simply press enter in the value");
+        Book selectedBook = (Book) KeyboardUtility.askForElementInArray(bookService.fetchAllBooks().toArray());
+        String title = askForTitle();
+        String author = askForAuthor();
+        String isbn = askForIsbn();
+        String edition = askForEdition();
+
+        if (!title.trim().isEmpty()) {
+            selectedBook.setTitle(title);
+        }
+        if (!author.trim().isEmpty()) {
+            selectedBook.setAuthor(author);
+        }
+        if (!isbn.trim().isEmpty()) {
+            selectedBook.setIsbn(isbn);
+        }
+        if (!edition.trim().isEmpty()) {
+            selectedBook.setEdition(edition);
+        }
+        bookService.updateBookById(selectedBook);
+    }
+
+    private void startDeleteBook() {
+        List<Book> books = bookService.fetchAllBooks();
+        if (!books.isEmpty()) {
+            System.out.println("Select book to be deleted");
+            Book selectedBook = (Book) KeyboardUtility.askForElementInArray(bookService.fetchAllBooks().toArray());
+            bookService.deleteById(selectedBook.getId());
+        } else {
+            System.out.println("No book was found");
+        }
     }
 }

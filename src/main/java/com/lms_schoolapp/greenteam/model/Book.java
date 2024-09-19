@@ -20,4 +20,9 @@ public class Book {
     private String author;
     private String isbn;
     private String edition;
+
+    @Override
+    public String toString() {
+        return "Book title " + title + " author " + author + " isbn " + isbn + " edition " + edition;
+    }
 }

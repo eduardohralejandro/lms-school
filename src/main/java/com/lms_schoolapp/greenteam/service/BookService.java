@@ -7,4 +7,6 @@ import java.util.List;
 public interface BookService {
     List<Book> fetchAllBooks();
     void saveBook(Book book);
+    void deleteById(Long id);
+    void updateBookById(Book book);
 }

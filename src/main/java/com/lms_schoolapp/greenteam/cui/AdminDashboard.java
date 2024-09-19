@@ -25,6 +25,7 @@ public class AdminDashboard {
     private final ClassSchoolSubjectService classSchoolSubjectService;
     private final StudentService studentService;
     private final TeacherService teacherService;
+    private final BookService bookService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -51,6 +52,8 @@ public class AdminDashboard {
                 case DISPLAY_ALL_SUBJECTS -> startDisplaySubjects();
                 case ASSIGN_CLASS -> selectClassesOption();
                 case DISPLAY_TEACHER_DETAIL -> startDisplayTeacherClasses();
+                case DISPLAY_ALL_BOOKS -> displayAllBooks();
+                case ADD_BOOK -> startBookCreation();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -306,5 +309,55 @@ public class AdminDashboard {
             System.out.printf("Number of Enrolled Students: %d%n", subject.getStudentCount());
             System.out.println();
         }
+    }
+
+    public void displayAllBooks() {
+        List<Book> teachersDetailsInfo = bookService.fetchAllBooks();
+        teachersDetailsInfo.forEach(this::bookDetail);
+    }
+
+    public void bookDetail(Book book) {
+        System.out.printf("Title: %s%n", book.getTitle());
+        System.out.printf("Author: %s%n", book.getAuthor());
+        System.out.printf("ISBN: %s%n", book.getIsbn());
+        System.out.printf("Edition: %s%n", book.getEdition());
+        System.out.println();
+    }
+
+    public String askForTitle() {
+        return KeyboardUtility.askForString("Enter book title: ");
+    }
+
+    public String askForAuthor() {
+        return KeyboardUtility.askForString("Enter book author: ");
+    }
+
+    public String askForIsbn() {
+        return KeyboardUtility.askForString("Enter book ISBN: ");
+    }
+
+    public String askForEdition() {
+        return KeyboardUtility.askForString("Enter book edition: ");
+    }
+
+    public Book createBook() {
+        String title = askForTitle();
+        String author = askForAuthor();
+        String isbn = askForIsbn();
+        String edition = askForEdition();
+
+        Book book = new Book();
+        book.setTitle(title);
+        book.setAuthor(author);
+        book.setIsbn(isbn);
+        book.setEdition(edition);
+
+        return book;
+    }
+
+    public void startBookCreation() {
+        Book newBook = createBook();
+        bookService.saveBook(newBook);
+        System.out.printf("%s was saved to the database \n", newBook.getTitle());
     }
 }

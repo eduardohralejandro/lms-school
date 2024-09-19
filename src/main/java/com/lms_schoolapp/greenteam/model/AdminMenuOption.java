@@ -9,6 +9,8 @@ public enum AdminMenuOption {
     DISPLAY_ALL_SUBJECTS,
     ASSIGN_CLASS,
     DISPLAY_TEACHER_DETAIL,
+    DISPLAY_ALL_BOOKS,
+    ADD_BOOK,
     EXIT,
 
 }

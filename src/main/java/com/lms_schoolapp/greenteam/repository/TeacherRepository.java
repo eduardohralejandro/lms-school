@@ -7,7 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface TeacherRepository  extends JpaRepository<Teacher, Long> {
+public interface TeacherRepository extends JpaRepository<Teacher, Long> {
     @Query("SELECT  u FROM Teacher u")
     List<Teacher> findAllTeachers();
+
+    List<Teacher> findByFirstNameContainingIgnoreCase(String name);
+
+    List<Teacher> findByEmailContainingIgnoreCase(String email);
+
 }

@@ -35,4 +35,14 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> fetchAllStudents() {
         return studentRepository.findAllStudents();
     }
+
+    @Override
+    public List<Student> findByFirstNameContainingIgnoreCase(String name) {
+        return studentRepository.findByFirstNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Student> findByEmailContainingIgnoreCase(String email) {
+        return studentRepository.findByEmailContainingIgnoreCase(email);
+    }
 }

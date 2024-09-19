@@ -7,13 +7,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.lms_schoolapp.greenteam.model.MainMenuOption.EXIT;
+import static com.lms_schoolapp.greenteam.model.FilterOption.CONTINUE;
 
 @Component
 @RequiredArgsConstructor
@@ -181,8 +183,8 @@ public class AdminDashboard {
             Stream<UserTypeOption> filtered = Arrays.stream(UserTypeOption.values()).filter((value) -> !value.equals(UserType.ADMIN));
             UserTypeOption option = (UserTypeOption) KeyboardUtility.askForElementInArray(filtered.toArray());
             switch (option) {
-                case STUDENT -> startAssignStudent();
-                case TEACHER -> startAssignTeacher();
+                case STUDENT -> startAssignStudent(option);
+                case TEACHER -> startAssignTeacher(option);
                 case EXIT -> {
                     continueSelection = true;
                 }
@@ -190,21 +192,101 @@ public class AdminDashboard {
         }
     }
 
-    private void startAssignTeacher() {
-        System.out.println("First, select the class you want to assign to the teacher");
-        ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
-        System.out.println("Select a Teacher to be assigned to that class");
-        Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(teacherService.findAllTeachers().toArray());
-        System.out.println(selectedClass.getId());
-        teacherService.assignTeacherToClass(selectedTeacher, selectedClass);
+    private void startAssignTeacher(UserTypeOption option) {
+        System.out.println("You can search by filters or list, select continue to select by list");
+        List<User> filteredUsers = selectFilterOption(option);
+        if (filteredUsers != null && !filteredUsers.isEmpty()) {
+            System.out.println("First, select the class you want to assign to the teacher");
+            ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+            System.out.println("Select a teacher to be assigned to that class");
+            Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(filteredUsers.toArray());
+            teacherService.assignTeacherToClass(selectedTeacher, selectedClass);
+        } else {
+            System.out.println("No results with that name was found, let's search on the list");
+            System.out.println("First, select the class you want to assign to the teacher");
+            ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+            System.out.println("Select a teacher to be assigned to that class");
+            Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(filteredUsers.toArray());
+            teacherService.assignTeacherToClass(selectedTeacher, selectedClass);
+        }
     }
 
-    private void startAssignStudent() {
-        System.out.println("First, select the class you want to assign to the student");
-        ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
-        System.out.println("Select a student to be assigned to that class");
-        Student selectedStudent = (Student) KeyboardUtility.askForElementInArray(studentService.fetchAllStudents().toArray());
-        studentService.assignStudentToClass(selectedClass.getId(), selectedStudent.getId());
+    private void startAssignStudent(UserTypeOption option) {
+        System.out.println("You can search by filters or list, select continue to select by list");
+        List<User> filteredUsers = selectFilterOption(option);
+        if (filteredUsers != null && !filteredUsers.isEmpty()) {
+            System.out.println("List with result was found");
+            System.out.println("First, select the class you want to assign to the student");
+            ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+            System.out.println("Select a student to be assigned to that class");
+            Student selectedStudent = (Student) KeyboardUtility.askForElementInArray(filteredUsers.toArray());
+            studentService.assignStudentToClass(selectedClass.getId(), selectedStudent.getId());
+        } else {
+            System.out.println("No results with that name was found, let's search on the list");
+            System.out.println("First, select the class you want to assign to the student");
+            ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+            System.out.println("Select a student to be assigned to that class");
+            Student selectedStudent = (Student) KeyboardUtility.askForElementInArray(studentService.fetchAllStudents().toArray());
+            studentService.assignStudentToClass(selectedClass.getId(), selectedStudent.getId());
+        }
     }
 
+    private List<User> selectFilterOption(UserTypeOption userTypeOption) {
+        boolean continueSelection = false;
+        List<User> filteredUsers = new ArrayList<>(); // Initialize as an empty list
+
+        while (!continueSelection) {
+            FilterOption option = KeyboardUtility.askForElementInArray(FilterOption.values());
+            switch (option) {
+                case SEARCH_BY_NAME -> filteredUsers = startFilterByName(userTypeOption);
+                case SEARCH_BY_EMAIL -> filteredUsers = startFilterByEmail(userTypeOption);
+                case CONTINUE -> {
+                    continueSelection = true;
+                }
+            }
+
+            if (!filteredUsers.isEmpty()) {
+                return filteredUsers; // Return the list if not empty
+            } else if (option == CONTINUE) {
+                break;
+            } else {
+                System.out.println("No results found. Please try again or continue with all users.");
+            }
+        }
+
+        return filteredUsers;
+    }
+
+
+    private List<User> startFilterByEmail(UserTypeOption userTypeOption) {
+        String input = KeyboardUtility.askForString(
+                userTypeOption.equals(UserTypeOption.STUDENT) ? "Type student email: " : "Type teacher email: "
+        );
+
+        if (userTypeOption.equals(UserTypeOption.STUDENT)) {
+            return studentService.findByEmailContainingIgnoreCase(input)
+                    .stream().map(user -> (User) user)
+                    .collect(Collectors.toList());
+        } else {
+            return teacherService.findByEmailContainingIgnoreCase(input)
+                    .stream().map(user -> (User) user)
+                    .collect(Collectors.toList());
+        }
+    }
+
+    private List<User> startFilterByName(UserTypeOption userTypeOption) {
+        String input = KeyboardUtility.askForString(
+                userTypeOption.equals(UserTypeOption.STUDENT) ? "Type student name: " : "Type teacher name: "
+        );
+
+        if (userTypeOption.equals(UserTypeOption.STUDENT)) {
+            return studentService.findByFirstNameContainingIgnoreCase(input)
+                    .stream().map(user -> (User) user)
+                    .collect(Collectors.toList());
+        } else {
+            return teacherService.findByFirstNameContainingIgnoreCase(input)
+                    .stream().map(user -> (User) user)
+                    .collect(Collectors.toList());
+        }
+    }
 }

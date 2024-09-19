@@ -34,4 +34,14 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAllTeachers();
     }
+
+    @Override
+    public List<Teacher> findByFirstNameContainingIgnoreCase(String name) {
+        return teacherRepository.findByFirstNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Teacher> findByEmailContainingIgnoreCase(String lastName) {
+        return teacherRepository.findByEmailContainingIgnoreCase(lastName);
+    }
 }

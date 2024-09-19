@@ -364,7 +364,6 @@ public class AdminDashboard {
     }
 
     void selectOperationOnBook() {
-        bookService.fetchAllBooks();
         System.out.println("Select operation to update book or delete it");
         boolean continueSelection = false;
         while (!continueSelection) {

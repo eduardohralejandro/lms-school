@@ -1,9 +1,6 @@
 package com.lms_schoolapp.greenteam.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -20,7 +17,9 @@ public class Book {
     private String author;
     private String isbn;
     private String edition;
-
+    @ManyToOne
+    @JoinColumn(name = "class_subject_id")
+    private ClassSchoolSubject subject;
     @Override
     public String toString() {
         return "Book title " + title + " author " + author + " isbn " + isbn + " edition " + edition;

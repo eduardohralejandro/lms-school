@@ -41,6 +41,9 @@ public class ClassSchoolSubject {
     private Set<Student> students = new HashSet<>();
     @Transient
     private Long studentCount;
+    @OneToMany(mappedBy = "subject")
+    private Set<Book> books = new HashSet<>();
+
     @Override
     public String toString() {
         return "Name: " + name + ". Description: " + description + " start: " + startDate + " end: " + endDate;

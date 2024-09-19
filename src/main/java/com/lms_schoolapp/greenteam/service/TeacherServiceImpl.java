@@ -44,4 +44,17 @@ public class TeacherServiceImpl implements TeacherService {
     public List<Teacher> findByEmailContainingIgnoreCase(String lastName) {
         return teacherRepository.findByEmailContainingIgnoreCase(lastName);
     }
+
+    @Override
+    @Transactional
+    public List<Teacher> getTeachersWithClassDetails() {
+        List<Teacher> teachers = teacherRepository.findAllTeachersWithClasses();
+        for (Teacher teacher : teachers) {
+            for (ClassSchoolSubject classSubject : teacher.getSubjects()) {
+                long studentCount = classSchoolSubjectRepository.countStudentsInClass(classSubject.getId());
+                classSubject.setStudentCount(studentCount);
+            }
+        }
+        return teachers;
+    }
 }

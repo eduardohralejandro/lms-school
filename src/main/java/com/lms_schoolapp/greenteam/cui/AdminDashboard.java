@@ -50,6 +50,7 @@ public class AdminDashboard {
                 case CREATE_CLASS_SUBJECT -> startCreateClassSubject();
                 case DISPLAY_ALL_SUBJECTS -> startDisplaySubjects();
                 case ASSIGN_CLASS -> selectClassesOption();
+                case DISPLAY_TEACHER_DETAIL -> startDisplayTeacherClasses();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -206,7 +207,7 @@ public class AdminDashboard {
             System.out.println("First, select the class you want to assign to the teacher");
             ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
             System.out.println("Select a teacher to be assigned to that class");
-            Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(filteredUsers.toArray());
+            Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(teacherService.findAllTeachers().toArray());
             teacherService.assignTeacherToClass(selectedTeacher, selectedClass);
         }
     }
@@ -287,6 +288,23 @@ public class AdminDashboard {
             return teacherService.findByFirstNameContainingIgnoreCase(input)
                     .stream().map(user -> (User) user)
                     .collect(Collectors.toList());
+        }
+    }
+
+    public void startDisplayTeacherClasses() {
+        List<Teacher> teachersDetailsInfo = teacherService.getTeachersWithClassDetails();
+        teachersDetailsInfo.forEach(this::teacherClassDetail);
+    }
+
+    public void teacherClassDetail(Teacher teacher) {
+        System.out.printf("Teacher: %s %s %n", teacher.getFirstName(), teacher.getLastName());
+
+        for (ClassSchoolSubject subject : teacher.getSubjects()) {
+            System.out.printf("Class Name: %s%n", subject.getName());
+            System.out.printf("Start Date: %s%n", subject.getStartDate());
+            System.out.printf("End Date: %s%n", subject.getEndDate());
+            System.out.printf("Number of Enrolled Students: %d%n", subject.getStudentCount());
+            System.out.println();
         }
     }
 }

@@ -15,4 +15,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     List<Teacher> findByEmailContainingIgnoreCase(String email);
 
+    @Query("SELECT t FROM Teacher t " +
+            "JOIN t.subjects c " +
+            "GROUP BY t.id, c.id")
+    List<Teacher> findAllTeachersWithClasses();
 }

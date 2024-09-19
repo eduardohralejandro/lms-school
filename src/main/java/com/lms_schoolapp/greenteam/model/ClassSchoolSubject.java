@@ -39,4 +39,9 @@ public class ClassSchoolSubject {
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
     private Set<Student> students = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ". Description: " + description + " start: " + startDate + " end: " + endDate;
+    }
 }

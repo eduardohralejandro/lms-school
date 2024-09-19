@@ -2,16 +2,18 @@ package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
-import com.lms_schoolapp.greenteam.service.AdminService;
-import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
-import com.lms_schoolapp.greenteam.service.UserService;
+import com.lms_schoolapp.greenteam.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+
+import static com.lms_schoolapp.greenteam.model.MainMenuOption.EXIT;
 
 @Component
 @RequiredArgsConstructor
@@ -19,6 +21,8 @@ public class AdminDashboard {
     private final AdminService adminService;
     private final UserService<Admin> userAdminService;
     private final ClassSchoolSubjectService classSchoolSubjectService;
+    private final StudentService studentService;
+    private final TeacherService teacherService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -42,6 +46,8 @@ public class AdminDashboard {
                 case ACTIVE_USERS -> activeUsers();
                 case DISPLAY_INACTIVE_USERS -> displayInactiveUsers();
                 case CREATE_CLASS_SUBJECT -> startCreateClassSubject();
+                case DISPLAY_ALL_SUBJECTS -> startDisplaySubjects();
+                case ASSIGN_CLASS -> selectClassesOption();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
@@ -107,7 +113,6 @@ public class AdminDashboard {
 
     public void activeUser() {
         List<User> allUsers = adminService.findAllInactiveUsers();
-        System.out.println(allUsers.size());
         if (!allUsers.isEmpty()) {
             System.out.println("Active a single user");
             User user = (User) KeyboardUtility.askForElementInArray(allUsers.toArray());
@@ -155,4 +160,51 @@ public class AdminDashboard {
         newUser.setTelephone(telephone);
         return newUser;
     }
+
+    public void startDisplaySubjects() {
+        List<ClassSchoolSubject> classSchoolSubjectList = classSchoolSubjectService.findAll();
+        classSchoolSubjectList.forEach(this::displaySubjectDetail);
+    }
+
+    public void displaySubjectDetail(ClassSchoolSubject subject) {
+        System.out.printf("Subject: %s, Description: %s, start: %s, end: %s \n",
+                subject.getName(),
+                subject.getDescription(),
+                subject.getStartDate().toString(),
+                subject.getEndDate().toString());
+    }
+
+    public void selectClassesOption() {
+        System.out.println("Assign student to a class or teacher to a class, select TEACHER or STUDENT");
+        boolean continueSelection = false;
+        while (!continueSelection) {
+            Stream<UserTypeOption> filtered = Arrays.stream(UserTypeOption.values()).filter((value) -> !value.equals(UserType.ADMIN));
+            UserTypeOption option = (UserTypeOption) KeyboardUtility.askForElementInArray(filtered.toArray());
+            switch (option) {
+                case STUDENT -> startAssignStudent();
+                case TEACHER -> startAssignTeacher();
+                case EXIT -> {
+                    continueSelection = true;
+                }
+            }
+        }
+    }
+
+    private void startAssignTeacher() {
+        System.out.println("First, select the class you want to assign to the teacher");
+        ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+        System.out.println("Select a Teacher to be assigned to that class");
+        Teacher selectedTeacher = (Teacher) KeyboardUtility.askForElementInArray(teacherService.findAllTeachers().toArray());
+        System.out.println(selectedClass.getId());
+        teacherService.assignTeacherToClass(selectedTeacher, selectedClass);
+    }
+
+    private void startAssignStudent() {
+        System.out.println("First, select the class you want to assign to the student");
+        ClassSchoolSubject selectedClass = (ClassSchoolSubject) KeyboardUtility.askForElementInArray(classSchoolSubjectService.findAll().toArray());
+        System.out.println("Select a student to be assigned to that class");
+        Student selectedStudent = (Student) KeyboardUtility.askForElementInArray(studentService.fetchAllStudents().toArray());
+        studentService.assignStudentToClass(selectedClass.getId(), selectedStudent.getId());
+    }
+
 }

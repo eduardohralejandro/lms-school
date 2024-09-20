@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -37,6 +40,8 @@ public class User {
     private String telephone;
     UserType userType;
     boolean active;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    List<Post> posts = new ArrayList<>();
 
     @Override
     public String toString() {

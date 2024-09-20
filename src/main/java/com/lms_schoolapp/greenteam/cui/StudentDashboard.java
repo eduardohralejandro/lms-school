@@ -4,6 +4,7 @@ import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.BookService;
 import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
+import com.lms_schoolapp.greenteam.service.StudentService;
 import com.lms_schoolapp.greenteam.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ public class StudentDashboard {
     private final ClassSchoolSubjectService classSchoolSubjectService;
     private final BookService bookService;
     private final TeacherService teacherService;
+    private final StudentService studentService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -38,10 +40,58 @@ public class StudentDashboard {
                 case DISPLAY_CLASSES_ASSIGNED -> startDisplayClassesAssigned(loggedInUser);
                 case DISPLAY_MANDATORY_BOOKS_PER_CLASS -> startDisplayMandatoryBooks(loggedInUser);
                 case DISPLAY_TEACHERS_ASSIGNED -> startDisplayTeacherAssigned(loggedInUser);
+                case CHAT_WITH_STUDENTS -> startChatWithStudent(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }
             }
+        }
+    }
+
+    private void startChatWithStudent(User loggedInUser) {
+        System.out.println("Search student by name, email or continue to list");
+        boolean continueSelection = false;
+        while (!continueSelection) {
+            FilterOption option = (FilterOption) KeyboardUtility.askForElementInArray(FilterOption.values());
+            switch (option) {
+                case SEARCH_BY_EMAIL -> startSearchByEmailToChat();
+                case SEARCH_BY_NAME -> startSearchByNameToChat();
+                case CONTINUE -> {
+                    startDisplayAllStudents();
+                    continueSelection = true;
+                }
+            }
+        }
+    }
+
+    private void startDisplayAllStudents() {
+        List<Student> allStudents = studentService.fetchAllStudents();
+        if (allStudents.isEmpty()) {
+            System.out.println("No students found");
+        } else {
+            Student selectedStudent = (Student) KeyboardUtility.askForElementInArray(allStudents.toArray());
+        }
+    }
+
+    private void startSearchByNameToChat() {
+        String studentName = KeyboardUtility.askForString("Enter student name: ");
+        List<Student> studentsFilteredByName = studentService.findByFirstNameContainingIgnoreCase(studentName);
+        if (studentsFilteredByName != null) {
+            Student foundStudent = (Student) KeyboardUtility.askForElementInArray(studentsFilteredByName.toArray());
+        } else {
+            System.out.println("Students not found by name");
+            System.out.println("Press continue to check by list of students in the database");
+        }
+    }
+
+    private void startSearchByEmailToChat() {
+        String studentEmail = KeyboardUtility.askForString("Enter student email: ");
+        List<Student> studentsFilteredByName = studentService.findByEmailContainingIgnoreCase(studentEmail);
+        if (studentsFilteredByName != null) {
+            Student foundStudent = (Student) KeyboardUtility.askForElementInArray(studentsFilteredByName.toArray());
+        } else {
+            System.out.println("Students not found by name");
+            System.out.println("Press continue to check by list of students in the database");
         }
     }
 

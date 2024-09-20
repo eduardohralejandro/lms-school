@@ -21,4 +21,8 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "JOIN t.subjects c " +
             "GROUP BY t.id, c.id")
     List<Teacher> findAllTeachersWithClasses();
+
+    @Query("SELECT t FROM Teacher t JOIN FETCH t.subjects c JOIN c.students s WHERE s.id = :studentId")
+    List<Teacher> findAllTeachersAssociatedWithClassesOfStudent(@Param("studentId") Long studentId);
+
 }

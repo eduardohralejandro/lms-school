@@ -2,13 +2,18 @@ package com.lms_schoolapp.greenteam.service;
 
 import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
 import com.lms_schoolapp.greenteam.model.Student;
+import com.lms_schoolapp.greenteam.model.Teacher;
 import com.lms_schoolapp.greenteam.repository.ClassSchoolSubjectRepository;
 import com.lms_schoolapp.greenteam.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +49,35 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> findByEmailContainingIgnoreCase(String email) {
         return studentRepository.findByEmailContainingIgnoreCase(email);
+    }
+
+    @Override
+    @Transactional
+    public List<Student> findStudentsByClassAndTeacher(Long classId, Long teacherId) {
+        List<Student> students = studentRepository.findStudentsByClassAndTeacher(classId, teacherId);
+
+        Set<Long> classIds = new HashSet<>();
+        for (Student student : students) {
+            for (ClassSchoolSubject classSubject : student.getSchoolSubjects()) {
+                classIds.add(classSubject.getId());
+            }
+        }
+
+        List<Object[]> studentCountsRaw = classSchoolSubjectRepository.countStudentsInClasses(classIds);
+
+        Map<Long, Long> studentCounts = studentCountsRaw.stream()
+                .collect(Collectors.toMap(
+                        row -> (Long) row[0],
+                        row -> (Long) row[1]
+                ));
+
+        for (Student student : students) {
+            for (ClassSchoolSubject classSubject : student.getSchoolSubjects()) {
+                Long studentCount = studentCounts.get(classSubject.getId());
+                classSubject.setStudentCount(studentCount != null ? studentCount : 0L); // Handle null case
+            }
+        }
+
+        return students;
     }
 }

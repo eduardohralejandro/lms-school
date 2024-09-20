@@ -15,4 +15,6 @@ import java.util.Set;
 public class Student extends User {
     @ManyToMany(mappedBy = "students")
     private Set<ClassSchoolSubject> schoolSubjects = new HashSet<>();
+    @Transient
+    Long studentCount;
 }

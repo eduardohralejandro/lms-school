@@ -11,4 +11,5 @@ public interface BookService {
     void updateBookById(Book book);
     List<Book> findByTitleContainingIgnoreCase(String name);
     List<Book> findByAuthorContainingIgnoreCase(String authorName);
+    Book findMandatoryBooksPerClassAndUser(Long userId, Long classId);
 }

@@ -23,4 +23,6 @@ public interface ClassSchoolSubjectRepository extends JpaRepository<ClassSchoolS
 
     @Query("SELECT c.id, COUNT(s) FROM ClassSchoolSubject c JOIN c.students s WHERE c.id IN :classIds GROUP BY c.id")
     List<Object[]> countStudentsInClasses(@Param("classIds") Set<Long> classIds);
+    @Query("SELECT c FROM ClassSchoolSubject c JOIN c.students s WHERE s.id = :studentId")
+    List<ClassSchoolSubject> getClassesForStudent(@Param("studentId") Long studentId);
 }

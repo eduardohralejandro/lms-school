@@ -67,4 +67,9 @@ public class ClassSchoolSubjectServiceImpl implements ClassSchoolSubjectService 
         bookRepository.save(selectedBook);
     }
 
+    @Override
+    public List<ClassSchoolSubject> getClassesForStudent(Long studentId) {
+        return classSchoolSubjectRepository.getClassesForStudent(studentId);
+    }
+
 }

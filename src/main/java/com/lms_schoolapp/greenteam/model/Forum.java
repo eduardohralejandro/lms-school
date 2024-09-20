@@ -16,8 +16,8 @@ public class Forum {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ForumType forumType;
     @OneToMany(mappedBy = "forum")
     private Set<Thread> threads = new HashSet<>();

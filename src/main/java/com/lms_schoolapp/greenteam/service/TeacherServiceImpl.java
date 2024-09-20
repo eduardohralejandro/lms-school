@@ -57,4 +57,10 @@ public class TeacherServiceImpl implements TeacherService {
         }
         return teachers;
     }
+
+    @Override
+    @Transactional
+    public List<Teacher> findAllTeachersWithClasses(Long studentId) {
+        return teacherRepository.findAllTeachersAssociatedWithClassesOfStudent(studentId);
+    }
 }

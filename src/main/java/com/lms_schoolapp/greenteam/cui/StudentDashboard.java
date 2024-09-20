@@ -4,6 +4,7 @@ import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.BookService;
 import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
+import com.lms_schoolapp.greenteam.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class StudentDashboard {
     private final ClassSchoolSubjectService classSchoolSubjectService;
     private final BookService bookService;
+    private final TeacherService teacherService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -35,11 +37,25 @@ public class StudentDashboard {
             switch (option) {
                 case DISPLAY_CLASSES_ASSIGNED -> startDisplayClassesAssigned(loggedInUser);
                 case DISPLAY_MANDATORY_BOOKS_PER_CLASS -> startDisplayMandatoryBooks(loggedInUser);
+                case DISPLAY_TEACHERS_ASSIGNED -> startDisplayTeacherAssigned(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }
             }
         }
+    }
+
+    private void startDisplayTeacherAssigned(User loggedInUser) {
+        List<Teacher> teachers = teacherService.findAllTeachersWithClasses(loggedInUser.getId());
+        System.out.printf("Student %s is assigned to the following teachers: \n", loggedInUser.getFirstName());
+        teachers.forEach(this::displayTeacherDetail);
+    }
+
+    private void displayTeacherDetail(Teacher teacher) {
+        System.out.printf("Teacher: %s %s, email:%s \n", teacher.getFirstName(), teacher.getLastName(), teacher.getEmail());
+        teacher.getSubjects().forEach(subject -> {
+            System.out.printf("Subject: %s\n", subject.getName());
+        });
     }
 
     private void startDisplayMandatoryBooks(User loggedInUser) {

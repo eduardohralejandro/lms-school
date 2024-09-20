@@ -2,10 +2,7 @@ package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
-import com.lms_schoolapp.greenteam.service.BookService;
-import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
-import com.lms_schoolapp.greenteam.service.StudentService;
-import com.lms_schoolapp.greenteam.service.TeacherService;
+import com.lms_schoolapp.greenteam.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +15,7 @@ public class StudentDashboard {
     private final BookService bookService;
     private final TeacherService teacherService;
     private final StudentService studentService;
+    private final ForumService forumService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -41,12 +39,20 @@ public class StudentDashboard {
                 case DISPLAY_MANDATORY_BOOKS_PER_CLASS -> startDisplayMandatoryBooks(loggedInUser);
                 case DISPLAY_TEACHERS_ASSIGNED -> startDisplayTeacherAssigned(loggedInUser);
                 case CHAT_WITH_STUDENTS -> startChatWithStudent(loggedInUser);
+                case DISPLAY_FORUMS -> displayForumStudent(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }
             }
         }
     }
+
+    private void displayForumStudent(User loggedInUser) {
+        System.out.println("Overview of student forums, select one");
+        List<Forum> studentForums = forumService.findForumByDtype(ForumType.STUDENT);
+        Forum forum = (Forum) KeyboardUtility.askForElementInArray(studentForums.toArray());
+    }
+
 
     private void startChatWithStudent(User loggedInUser) {
         System.out.println("Search student by name, email or continue to list");

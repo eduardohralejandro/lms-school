@@ -13,6 +13,6 @@ public enum AdminMenuOption {
     ADD_BOOK,
     UPDATE_BOOK_DELETE,
     SEARCH_BOOK,
-    EXIT,
+    EXIT, CREATE_FORUM,
 
 }

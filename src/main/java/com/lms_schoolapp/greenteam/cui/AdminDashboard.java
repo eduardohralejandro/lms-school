@@ -2,6 +2,7 @@ package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
+import com.lms_schoolapp.greenteam.repository.ForumRepository;
 import com.lms_schoolapp.greenteam.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class AdminDashboard {
     private final StudentService studentService;
     private final TeacherService teacherService;
     private final BookService bookService;
+    private final ForumService forumService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -56,12 +58,25 @@ public class AdminDashboard {
                 case ADD_BOOK -> startBookCreation();
                 case UPDATE_BOOK_DELETE -> selectOperationOnBook();
                 case SEARCH_BOOK -> searchBook();
+                case CREATE_FORUM -> createForum();
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;
                 }
             }
         }
+    }
+
+    private void createForum() {
+        System.out.println("Create forum, here you can create type of forums, either STUDENT, ADMIN, TEACHER or GENERAL");
+        ForumType forumType = askForForumType();
+        Forum forum = new Forum();
+        forum.setForumType(forumType);
+        forumService.saveForum(forum);
+    }
+
+    private ForumType askForForumType() {
+        return KeyboardUtility.askForElementInArray(ForumType.values());
     }
 
     private void startCreateClassSubject() {

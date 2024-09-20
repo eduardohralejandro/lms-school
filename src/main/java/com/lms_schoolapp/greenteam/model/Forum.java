@@ -21,4 +21,9 @@ public class Forum {
     private ForumType forumType;
     @OneToMany(mappedBy = "forum")
     private Set<Thread> threads = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Forum for: " + forumType.name();
+    }
 }

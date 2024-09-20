@@ -4,6 +4,7 @@ import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.BookService;
 import com.lms_schoolapp.greenteam.service.ClassSchoolSubjectService;
+import com.lms_schoolapp.greenteam.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class TeacherDashboard {
     private final ClassSchoolSubjectService classSchoolSubjectService;
     private final BookService bookService;
+    private final StudentService studentService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -34,11 +36,29 @@ public class TeacherDashboard {
             TeacherMainMenuOption option = (TeacherMainMenuOption) KeyboardUtility.askForElementInArray(TeacherMainMenuOption.values());
             switch (option) {
                 case DISPLAY_CLASSES_TEACHER -> startDisplayClasses(loggedInUser);
+                case DISPLAY_STUDENTS_SUBSCRIBED_TO_MY_CLASS -> startStudentClass(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }
             }
         }
+    }
+
+    private void startStudentClass(User loggedInUser) {
+        List<ClassSchoolSubject> classSchoolSubjectList = classSchoolSubjectService.findClassesWithTeacher(loggedInUser.getId());
+
+        classSchoolSubjectList.forEach(classSchoolSubject -> {
+            List<Student> students = studentService.findStudentsByClassAndTeacher(classSchoolSubject.getId(), loggedInUser.getId());
+
+            System.out.println("Class: " + classSchoolSubject.getName() + " - Subject: " + classSchoolSubject.getDescription());
+            System.out.println("Total Students Subscribed: " + students.size());  // Print total number of students
+
+            students.forEach(student -> {
+                System.out.println("Student Name: " + student.getFirstName() + " " + student.getLastName() + ", Email: " + student.getEmail());
+            });
+
+            System.out.println();
+        });
     }
 
     private void startDisplayClasses(User loggedInUser) {

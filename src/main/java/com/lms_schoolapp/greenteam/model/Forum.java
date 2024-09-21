@@ -20,7 +20,7 @@ public class Forum {
     @Enumerated(EnumType.STRING)
     private ForumType forumType;
     @OneToMany(mappedBy = "forum")
-    private Set<Thread> threads = new HashSet<>();
+    private Set<ThreadRoom> threads = new HashSet<>();
 
     @Override
     public String toString() {

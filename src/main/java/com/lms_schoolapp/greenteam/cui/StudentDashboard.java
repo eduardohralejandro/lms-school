@@ -6,6 +6,7 @@ import com.lms_schoolapp.greenteam.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -16,6 +17,7 @@ public class StudentDashboard {
     private final TeacherService teacherService;
     private final StudentService studentService;
     private final ForumService forumService;
+    private final ThreadService threadService;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -39,7 +41,8 @@ public class StudentDashboard {
                 case DISPLAY_MANDATORY_BOOKS_PER_CLASS -> startDisplayMandatoryBooks(loggedInUser);
                 case DISPLAY_TEACHERS_ASSIGNED -> startDisplayTeacherAssigned(loggedInUser);
                 case CHAT_WITH_STUDENTS -> startChatWithStudent(loggedInUser);
-                case DISPLAY_FORUMS -> displayForumStudent(loggedInUser);
+                case DISPLAY_FORUMS_CREATE_THREAD -> displayForumStudent(loggedInUser);
+                case DISPLAY_THREADS -> displayThreads();
                 case EXIT -> {
                     continueSelection = true;
                 }
@@ -48,11 +51,29 @@ public class StudentDashboard {
     }
 
     private void displayForumStudent(User loggedInUser) {
-        System.out.println("Overview of student forums, select one");
+        System.out.println("Overview of student forums, select one to start thread");
         List<Forum> studentForums = forumService.findForumByDtype(ForumType.STUDENT);
         Forum forum = (Forum) KeyboardUtility.askForElementInArray(studentForums.toArray());
+        startCreateThreadInForum(forum, loggedInUser);
     }
 
+    private void startCreateThreadInForum(Forum forum, User loggedInUser) {
+        System.out.println("You can start creating a thread");
+        String threadTitle = askForThreadTitle();
+        threadService.createThread(loggedInUser.getId(), forum.getId(), threadTitle);
+        System.out.printf("Thread with title: %s was created\n ", threadTitle);
+        displayThreads();
+    }
+
+    public void displayThreads() {
+        List<ForumType> forumTypes = Arrays.asList(ForumType.GENERAL, ForumType.STUDENT);
+        List<ThreadRoom> listOfThreads = threadService.findAllByForumForumTypeInOrderByCreatedDateAsc(forumTypes);
+        ThreadRoom threadRoomSelected = (ThreadRoom) KeyboardUtility.askForElementInArray(listOfThreads.toArray());
+    }
+
+    public String askForThreadTitle() {
+        return KeyboardUtility.askForString("Enter thread title: ");
+    }
 
     private void startChatWithStudent(User loggedInUser) {
         System.out.println("Search student by name, email or continue to list");

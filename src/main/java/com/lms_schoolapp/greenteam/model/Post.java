@@ -18,7 +18,7 @@ public class Post {
     private String body;
     @ManyToOne
     @JoinColumn(name = "thread_id")
-    private Thread thread;
+    private ThreadRoom thread;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @ManyToOne

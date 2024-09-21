@@ -42,7 +42,8 @@ public class User {
     boolean active;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
-
+    @OneToMany(mappedBy = "user")
+    List<ThreadRoom> threads = new ArrayList<>();
     @Override
     public String toString() {
         return firstName + " " + lastName + ". email: " + email;

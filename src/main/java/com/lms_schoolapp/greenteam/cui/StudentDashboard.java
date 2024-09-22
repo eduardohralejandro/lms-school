@@ -22,6 +22,7 @@ public class StudentDashboard {
     private final ForumService forumService;
     private final ThreadService threadService;
     private final PostService postService;
+    private final WebshopMainConsole webshopMainConsole;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -47,6 +48,7 @@ public class StudentDashboard {
                 case CHAT_WITH_STUDENTS -> startChatWithStudent(loggedInUser);
                 case DISPLAY_FORUMS_CREATE_THREAD -> displayForumStudent(loggedInUser);
                 case DISPLAY_THREADS -> displayThreads(loggedInUser);
+                case VISIT_WEB_SHOP -> webshopMainConsole.selectOptionWebshop(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }

@@ -20,6 +20,7 @@ public class TeacherDashboard {
     private final ForumService forumService;
     private final ThreadService threadService;
     private final PostService postService;
+    private final WebshopMainConsole webshopMainConsole;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -43,6 +44,7 @@ public class TeacherDashboard {
                 case DISPLAY_STUDENTS_SUBSCRIBED_TO_MY_CLASS -> startStudentClass(loggedInUser);
                 case DISPLAY_FORUMS_CREATE_THREAD -> displayForumTeacher(loggedInUser);
                 case DISPLAY_THREADS -> displayThreads(loggedInUser);
+                case VISIT_WEB_SHOP -> webshopMainConsole.selectOptionWebshop(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }

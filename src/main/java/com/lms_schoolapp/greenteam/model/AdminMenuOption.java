@@ -17,6 +17,7 @@ public enum AdminMenuOption {
     DISPLAY_THREADS,
     CREATE_FORUM,
     CREATE_PRODUCT_WEB_SHOP,
+    VISIT_WEB_SHOP,
     EXIT,
 
 }

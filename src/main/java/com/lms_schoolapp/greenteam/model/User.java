@@ -46,6 +46,8 @@ public class User {
     List<ThreadRoom> threads = new ArrayList<>();
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private ShoppingCart shoppingCart;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public String toString() {

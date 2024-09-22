@@ -22,6 +22,10 @@ public class Product {
 
     @Override
     public String toString() {
-        return "Product name: " + name + ", description: " + description + ", price: " + price;
+        return "Product name: " + name;
+    }
+
+    public String displayInfoBeforeDetails() {
+        return "Product name: " + name + ", " + description + ", price: " + price;
     }
 }

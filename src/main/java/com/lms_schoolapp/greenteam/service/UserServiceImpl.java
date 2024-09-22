@@ -1,6 +1,7 @@
 package com.lms_schoolapp.greenteam.service;
 
 import com.lms_schoolapp.greenteam.model.*;
+import com.lms_schoolapp.greenteam.repository.ShoppingCartRepository;
 import com.lms_schoolapp.greenteam.repository.UserRepository;
 import com.lms_schoolapp.greenteam.util.AuthPasswordUtility;
 import jakarta.persistence.EntityNotFoundException;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl<T extends User> implements UserService<T> {
     private final UserRepository<T> userRepository;
+    private final ShoppingCartRepository shoppingCartRepository;
 
     @Override
     public T loginUser(String email, String password) {
@@ -45,7 +47,14 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
         } else {
             T newUser = createUser(user, user.getUserType());
             newUser.setPassword(AuthPasswordUtility.hashPassword(user.getPassword()));
+
+            ShoppingCart shoppingCart = new ShoppingCart();
+            newUser.setShoppingCart(shoppingCart);
+            shoppingCart.setUser(newUser);
+
             userRepository.save(newUser);
+            shoppingCartRepository.save(shoppingCart);
+
             System.out.printf("Success! You can now sign in as '%s %s'...\n", newUser.getFirstName(), newUser.getLastName());
         }
     }

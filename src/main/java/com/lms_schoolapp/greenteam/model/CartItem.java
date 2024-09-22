@@ -24,7 +24,7 @@ public class CartItem {
     @JoinColumn(name = "shopping_cart_id")
     private ShoppingCart shoppingCart;
 
-    private int quantity;
+    private int quantity = 1;
 
     private BigDecimal totalCost;
 }

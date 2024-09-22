@@ -27,4 +27,7 @@ public class CartItem {
     private int quantity = 1;
 
     private BigDecimal totalCost;
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = true)
+    private Order order;
 }

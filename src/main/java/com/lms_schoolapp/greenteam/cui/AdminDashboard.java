@@ -31,6 +31,7 @@ public class AdminDashboard {
     private final ForumService forumService;
     private final ThreadService threadService;
     private final PostService postService;
+    private final ProductMainConsole productMainConsole;
 
     public void start(User loggedInUser) {
         printWelcomeMessage();
@@ -64,6 +65,7 @@ public class AdminDashboard {
                 case CREATE_FORUM -> createForum();
                 case DISPLAY_FORUMS_CREATE_THREAD -> displayForumAdmin(loggedInAdmin);
                 case DISPLAY_THREADS -> displayThreads(loggedInAdmin);
+                case CREATE_PRODUCT_WEB_SHOP -> productMainConsole.printOptions(loggedInAdmin);
                 case EXIT -> {
                     loggedInAdmin = null;
                     continueSelection = true;

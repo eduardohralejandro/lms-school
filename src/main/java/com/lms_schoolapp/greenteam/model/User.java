@@ -44,6 +44,9 @@ public class User {
     List<Post> posts = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     List<ThreadRoom> threads = new ArrayList<>();
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private ShoppingCart shoppingCart;
+
     @Override
     public String toString() {
         return firstName + " " + lastName + ". email: " + email;

@@ -1,5 +1,6 @@
 package com.lms_schoolapp.greenteam.user.service;
 
+import com.lms_schoolapp.greenteam.common.response.LoginResponse;
 import com.lms_schoolapp.greenteam.user.model.*;
 import com.lms_schoolapp.greenteam.webshop.repository.ShoppingCartRepository;
 import com.lms_schoolapp.greenteam.user.repository.UserRepository;
@@ -19,25 +20,27 @@ public class UserServiceImpl<T extends User> implements UserService<T> {
     private final ShoppingCartRepository shoppingCartRepository;
 
     @Override
-    public T loginUser(String email, String password) {
+    public LoginResponse<T> loginUser(String email, String password) {
 
         Optional<T> userFound = Optional.ofNullable(fetchUserByEmail(email));
-        if (userFound.isPresent()) {
-            if (!userFound.get().isActive()) {
-                throw new RuntimeException("User: " + email + " is not active. Ask administrator to activate your account.");
-            }
-        }
+
         if (userFound.isEmpty()) {
-            throw new EntityNotFoundException("User with name " + email + " not found");
+            return new LoginResponse<>(false, "User with email " + email + " not found", null);
         }
 
-        if (!AuthPasswordUtility.checkPassword(password, userFound.get().getPassword())) {
-            throw new RuntimeException("Wrong password");
+        T user = userFound.get();
+
+        if (!user.isActive()) {
+            return new LoginResponse<>(false, "User: " + email + " is not active. Ask administrator to activate your account.", null);
         }
 
-        System.out.printf("Successfully logged in as '%s %s'\n", userFound.get().getFirstName(), userFound.get().getLastName());
+        if (!AuthPasswordUtility.checkPassword(password, user.getPassword())) {
+            return new LoginResponse<>(false, "Incorrect password. Please try again.", null);
+        }
 
-        return (T) userFound.get();
+        System.out.printf("Successfully logged in as '%s %s'\n", user.getFirstName(), user.getLastName());
+
+        return new LoginResponse<>(true, "Login successful", user);
     }
 
     @Override

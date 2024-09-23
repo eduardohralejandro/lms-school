@@ -1,7 +1,7 @@
-package com.lms_schoolapp.greenteam.repository;
+package com.lms_schoolapp.greenteam.social.repository;
 
 import com.lms_schoolapp.greenteam.model.ForumType;
-import com.lms_schoolapp.greenteam.model.ThreadRoom;
+import com.lms_schoolapp.greenteam.social.model.ThreadRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

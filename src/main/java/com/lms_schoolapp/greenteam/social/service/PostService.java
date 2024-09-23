@@ -1,6 +1,6 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.social.service;
 
-import com.lms_schoolapp.greenteam.model.Post;
+import com.lms_schoolapp.greenteam.social.model.Post;
 
 import java.util.List;
 

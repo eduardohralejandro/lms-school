@@ -1,6 +1,6 @@
 package com.lms_schoolapp.greenteam.user.model;
 
-import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
+import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
 import jakarta.persistence.*;
 import lombok.*;
 

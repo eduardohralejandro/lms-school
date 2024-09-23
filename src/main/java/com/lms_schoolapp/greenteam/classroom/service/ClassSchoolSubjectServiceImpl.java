@@ -1,9 +1,9 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.classroom.service;
 
-import com.lms_schoolapp.greenteam.model.Book;
-import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
-import com.lms_schoolapp.greenteam.repository.BookRepository;
-import com.lms_schoolapp.greenteam.repository.ClassSchoolSubjectRepository;
+import com.lms_schoolapp.greenteam.book.model.Book;
+import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
+import com.lms_schoolapp.greenteam.book.repository.BookRepository;
+import com.lms_schoolapp.greenteam.classroom.repository.ClassSchoolSubjectRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

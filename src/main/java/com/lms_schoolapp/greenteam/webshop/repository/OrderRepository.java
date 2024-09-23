@@ -1,6 +1,6 @@
-package com.lms_schoolapp.greenteam.repository;
+package com.lms_schoolapp.greenteam.webshop.repository;
 
-import com.lms_schoolapp.greenteam.model.Order;
+import com.lms_schoolapp.greenteam.webshop.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

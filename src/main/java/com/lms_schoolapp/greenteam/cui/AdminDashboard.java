@@ -1,21 +1,18 @@
 package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.book.model.Book;
+import com.lms_schoolapp.greenteam.book.model.BookFilterOption;
+import com.lms_schoolapp.greenteam.book.model.BookOperation;
 import com.lms_schoolapp.greenteam.book.service.BookService;
 import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
 import com.lms_schoolapp.greenteam.classroom.service.ClassSchoolSubjectService;
+import com.lms_schoolapp.greenteam.common.enums.FilterOption;
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
-import com.lms_schoolapp.greenteam.model.*;
-import com.lms_schoolapp.greenteam.social.model.Forum;
-import com.lms_schoolapp.greenteam.social.model.Post;
-import com.lms_schoolapp.greenteam.social.model.ThreadRoom;
+import com.lms_schoolapp.greenteam.social.model.*;
 import com.lms_schoolapp.greenteam.social.service.ForumService;
 import com.lms_schoolapp.greenteam.social.service.PostService;
 import com.lms_schoolapp.greenteam.social.service.ThreadService;
-import com.lms_schoolapp.greenteam.user.model.Admin;
-import com.lms_schoolapp.greenteam.user.model.Student;
-import com.lms_schoolapp.greenteam.user.model.Teacher;
-import com.lms_schoolapp.greenteam.user.model.User;
+import com.lms_schoolapp.greenteam.user.model.*;
 import com.lms_schoolapp.greenteam.user.service.AdminService;
 import com.lms_schoolapp.greenteam.user.service.StudentService;
 import com.lms_schoolapp.greenteam.user.service.TeacherService;
@@ -32,7 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.lms_schoolapp.greenteam.model.FilterOption.CONTINUE;
+import static com.lms_schoolapp.greenteam.common.enums.FilterOption.CONTINUE;
 
 @Component
 @RequiredArgsConstructor

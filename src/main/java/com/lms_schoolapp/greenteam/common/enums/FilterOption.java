@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.common.enums;
 
 public enum FilterOption {
     SEARCH_BY_NAME,

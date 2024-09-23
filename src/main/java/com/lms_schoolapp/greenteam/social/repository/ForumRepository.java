@@ -1,7 +1,7 @@
 package com.lms_schoolapp.greenteam.social.repository;
 
 import com.lms_schoolapp.greenteam.social.model.Forum;
-import com.lms_schoolapp.greenteam.model.ForumType;
+import com.lms_schoolapp.greenteam.social.model.ForumType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

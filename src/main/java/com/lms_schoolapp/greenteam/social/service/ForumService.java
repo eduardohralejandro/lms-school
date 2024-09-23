@@ -1,7 +1,7 @@
 package com.lms_schoolapp.greenteam.social.service;
 
 import com.lms_schoolapp.greenteam.social.model.Forum;
-import com.lms_schoolapp.greenteam.model.ForumType;
+import com.lms_schoolapp.greenteam.social.model.ForumType;
 
 import java.util.List;
 

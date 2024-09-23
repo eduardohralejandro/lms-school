@@ -1,6 +1,5 @@
 package com.lms_schoolapp.greenteam.webshop.model;
 
-import com.lms_schoolapp.greenteam.model.DeliveryOption;
 import com.lms_schoolapp.greenteam.user.model.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

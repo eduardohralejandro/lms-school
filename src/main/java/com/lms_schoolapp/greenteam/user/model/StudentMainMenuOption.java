@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.user.model;
 
 public enum StudentMainMenuOption {
     DISPLAY_MANDATORY_BOOKS_PER_CLASS,

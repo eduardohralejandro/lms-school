@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.webshop.model;
 
 public enum ProductMainOption {
     CREATE_PRODUCT,

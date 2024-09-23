@@ -3,6 +3,7 @@ package com.lms_schoolapp.greenteam.cui;
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.CartItemService;
+import com.lms_schoolapp.greenteam.service.OrderService;
 import com.lms_schoolapp.greenteam.service.ProductService;
 import com.lms_schoolapp.greenteam.service.ShoppingCartService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class WebshopMainConsole {
     private final ProductService productService;
     private final ShoppingCartService shoppingCartService;
     private final CartItemService cartItemService;
+    private final OrderService orderService;
 
     public void selectOptionWebshop(User loggedInUser) {
         System.out.println("Select operation in web shop");
@@ -25,9 +27,33 @@ public class WebshopMainConsole {
             switch (option) {
                 case SEE_ALL_PRODUCTS -> startAllProducts(loggedInUser);
                 case SEE_PRODUCTS_IN_BASKET -> startListAllProducts(loggedInUser);
+                case SEE_ALL_ORDERS -> startDisplayAllOrders(loggedInUser);
                 case EXIT -> {
                     continueSelection = true;
                 }
+            }
+        }
+    }
+
+    private void startDisplayAllOrders(User loggedInUser) {
+        List<Order> findAllOrders = orderService.getOrdersWithProductDetails(loggedInUser.getId());
+        if (findAllOrders.isEmpty()) {
+            System.out.println("No orders found for the user.");
+        } else {
+            for (Order order : findAllOrders) {
+                System.out.printf("Order Date: %s%n", order.getOrderDate());
+                System.out.printf("Delivery Option: %s%n", order.getDeliveryOption());
+                System.out.println("Products in this order:");
+
+                for (CartItem cartItem : order.getCartItems()) {
+                    Product product = cartItem.getProduct();
+                    System.out.printf(" - Product Name: %s, Quantity: %d, Price: %.2f%n",
+                            product.getName(),
+                            cartItem.getQuantity(),
+                            product.getPrice());
+                }
+
+                System.out.println("-----------------------------------------------------");
             }
         }
     }
@@ -62,6 +88,17 @@ public class WebshopMainConsole {
     }
 
     private void placeOrder(User loggedInUser, Product selectedProduct) {
+        System.out.println("Placing order, these are your items in your order: ");
+        startListAllProducts(loggedInUser);
+        System.out.println("Option delivery");
+        DeliveryOption option = (DeliveryOption) KeyboardUtility.askForElementInArray(DeliveryOption.values());
+        String askForContinue = KeyboardUtility.askForString("Are you sure do you want to place order (y/n): ");
+        if (askForContinue.toLowerCase().equals("y")) {
+            orderService.placeOrderByUserId(loggedInUser.getId(), option);
+            System.out.println("Order was placed");
+        } else {
+            System.out.println("Buy process was canceled");
+        }
     }
 
     private void startRemoveProductFromBasket(User loggedInUser, Product selectedProduct) {

@@ -1,11 +1,12 @@
 package com.lms_schoolapp.greenteam.user.service;
 
+import com.lms_schoolapp.greenteam.common.response.LoginResponse;
 import com.lms_schoolapp.greenteam.user.model.User;
 
 import java.util.List;
 
 public interface UserService<T extends User> {
-    T loginUser(String email, String password);
+    LoginResponse<T> loginUser(String email, String password);
 
     void signupUser(T user);
 

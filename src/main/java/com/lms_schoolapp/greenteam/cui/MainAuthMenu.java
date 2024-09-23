@@ -1,5 +1,6 @@
 package com.lms_schoolapp.greenteam.cui;
 
+import com.lms_schoolapp.greenteam.common.response.LoginResponse;
 import com.lms_schoolapp.greenteam.common.util.MainMenuOption;
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.user.model.*;
@@ -41,7 +42,7 @@ public class MainAuthMenu {
     }
 
     public void loginUser() {
-        User loggedInUser = startLoginUser();
+        User loggedInUser = startLoginUser().getUser();
         if (loggedInUser.getUserType().equals(UserType.STUDENT)) {
             studentDashboard.start(loggedInUser);
         } else if (loggedInUser.getUserType().equals(UserType.TEACHER)) {
@@ -144,10 +145,16 @@ public class MainAuthMenu {
         return newUser;
     }
 
-    public User startLoginUser() {
+    public LoginResponse<User> startLoginUser() {
         System.out.println("Provide credentials to login");
         String email = askForEmail();
         String password = askForPassword();
+        LoginResponse<User> userToLogin = userService.loginUser(email, password);
+        while (!userToLogin.isSuccess()) {
+            System.out.printf("Error: %s\n", userToLogin.getMessage());
+            email = askForEmail();
+            password = askForPassword();
+        }
         return userService.loginUser(email, password);
     }
 }

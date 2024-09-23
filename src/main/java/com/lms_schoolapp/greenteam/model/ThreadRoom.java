@@ -1,11 +1,11 @@
 package com.lms_schoolapp.greenteam.model;
 
+import com.lms_schoolapp.greenteam.user.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;

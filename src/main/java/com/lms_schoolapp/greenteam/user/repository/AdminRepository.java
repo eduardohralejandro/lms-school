@@ -1,7 +1,7 @@
-package com.lms_schoolapp.greenteam.repository;
+package com.lms_schoolapp.greenteam.user.repository;
 
-import com.lms_schoolapp.greenteam.model.Admin;
-import com.lms_schoolapp.greenteam.model.User;
+import com.lms_schoolapp.greenteam.user.model.Admin;
+import com.lms_schoolapp.greenteam.user.model.User;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;

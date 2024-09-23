@@ -1,9 +1,6 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.user.service;
 
-import com.lms_schoolapp.greenteam.model.Student;
-import com.lms_schoolapp.greenteam.model.Teacher;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import com.lms_schoolapp.greenteam.user.model.Student;
 
 import java.util.List;
 

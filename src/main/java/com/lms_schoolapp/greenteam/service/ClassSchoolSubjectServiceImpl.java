@@ -2,7 +2,6 @@ package com.lms_schoolapp.greenteam.service;
 
 import com.lms_schoolapp.greenteam.model.Book;
 import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
-import com.lms_schoolapp.greenteam.model.Teacher;
 import com.lms_schoolapp.greenteam.repository.BookRepository;
 import com.lms_schoolapp.greenteam.repository.ClassSchoolSubjectRepository;
 import jakarta.transaction.Transactional;

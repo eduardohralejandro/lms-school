@@ -2,8 +2,15 @@ package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
-import com.lms_schoolapp.greenteam.repository.ForumRepository;
 import com.lms_schoolapp.greenteam.service.*;
+import com.lms_schoolapp.greenteam.user.model.Admin;
+import com.lms_schoolapp.greenteam.user.model.Student;
+import com.lms_schoolapp.greenteam.user.model.Teacher;
+import com.lms_schoolapp.greenteam.user.model.User;
+import com.lms_schoolapp.greenteam.user.service.AdminService;
+import com.lms_schoolapp.greenteam.user.service.StudentService;
+import com.lms_schoolapp.greenteam.user.service.TeacherService;
+import com.lms_schoolapp.greenteam.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

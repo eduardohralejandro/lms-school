@@ -1,5 +1,6 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.user.model;
 
+import com.lms_schoolapp.greenteam.model.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;

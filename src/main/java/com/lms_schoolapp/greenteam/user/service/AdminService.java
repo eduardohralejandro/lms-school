@@ -1,6 +1,6 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.user.service;
 
-import com.lms_schoolapp.greenteam.model.User;
+import com.lms_schoolapp.greenteam.user.model.User;
 
 import java.util.List;
 

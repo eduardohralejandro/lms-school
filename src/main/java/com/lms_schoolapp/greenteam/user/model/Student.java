@@ -1,10 +1,10 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.user.model;
 
+import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

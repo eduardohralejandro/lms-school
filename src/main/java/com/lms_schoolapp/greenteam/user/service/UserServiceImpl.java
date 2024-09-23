@@ -1,8 +1,12 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.user.service;
 
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.repository.ShoppingCartRepository;
-import com.lms_schoolapp.greenteam.repository.UserRepository;
+import com.lms_schoolapp.greenteam.user.repository.UserRepository;
+import com.lms_schoolapp.greenteam.user.model.Admin;
+import com.lms_schoolapp.greenteam.user.model.Student;
+import com.lms_schoolapp.greenteam.user.model.Teacher;
+import com.lms_schoolapp.greenteam.user.model.User;
 import com.lms_schoolapp.greenteam.util.AuthPasswordUtility;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.util;
+package com.lms_schoolapp.greenteam.common.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

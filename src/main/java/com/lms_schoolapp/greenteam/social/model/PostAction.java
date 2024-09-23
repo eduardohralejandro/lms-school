@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.social.model;
 
 public enum PostAction {
     VIEW_POSTS_IN_THREAD,

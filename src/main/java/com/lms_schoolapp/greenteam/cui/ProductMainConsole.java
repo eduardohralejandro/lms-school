@@ -1,7 +1,7 @@
 package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
-import com.lms_schoolapp.greenteam.model.*;
+import com.lms_schoolapp.greenteam.webshop.model.ProductMainOption;
 import com.lms_schoolapp.greenteam.webshop.service.ProductService;
 import com.lms_schoolapp.greenteam.user.model.User;
 import com.lms_schoolapp.greenteam.webshop.model.Product;

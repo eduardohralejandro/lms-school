@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.user.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

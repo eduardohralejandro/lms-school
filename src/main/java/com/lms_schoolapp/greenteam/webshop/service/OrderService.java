@@ -1,6 +1,6 @@
 package com.lms_schoolapp.greenteam.webshop.service;
 
-import com.lms_schoolapp.greenteam.model.DeliveryOption;
+import com.lms_schoolapp.greenteam.webshop.model.DeliveryOption;
 import com.lms_schoolapp.greenteam.webshop.model.Order;
 
 import java.util.List;

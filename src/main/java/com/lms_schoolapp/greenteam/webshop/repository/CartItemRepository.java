@@ -1,8 +1,8 @@
-package com.lms_schoolapp.greenteam.repository;
+package com.lms_schoolapp.greenteam.webshop.repository;
 
-import com.lms_schoolapp.greenteam.model.CartItem;
+import com.lms_schoolapp.greenteam.webshop.model.CartItem;
 import com.lms_schoolapp.greenteam.model.Product;
-import com.lms_schoolapp.greenteam.model.ShoppingCart;
+import com.lms_schoolapp.greenteam.webshop.model.ShoppingCart;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

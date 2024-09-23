@@ -1,6 +1,6 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.webshop.service;
 
-import com.lms_schoolapp.greenteam.model.ShoppingCart;
+import com.lms_schoolapp.greenteam.webshop.model.ShoppingCart;
 
 public interface ShoppingCartService {
     ShoppingCart findShoppingCartByUserId(Long userId);

@@ -1,5 +1,6 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.book.model;
 
+import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

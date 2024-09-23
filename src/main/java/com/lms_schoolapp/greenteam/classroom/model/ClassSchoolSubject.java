@@ -1,5 +1,6 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.classroom.model;
 
+import com.lms_schoolapp.greenteam.book.model.Book;
 import com.lms_schoolapp.greenteam.user.model.Student;
 import com.lms_schoolapp.greenteam.user.model.Teacher;
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.webshop.service;
 
-import com.lms_schoolapp.greenteam.model.Product;
-import com.lms_schoolapp.greenteam.repository.ProductRepository;
+import com.lms_schoolapp.greenteam.webshop.model.Product;
+import com.lms_schoolapp.greenteam.webshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

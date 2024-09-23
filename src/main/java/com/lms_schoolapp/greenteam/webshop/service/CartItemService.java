@@ -1,7 +1,7 @@
 package com.lms_schoolapp.greenteam.webshop.service;
 
 import com.lms_schoolapp.greenteam.webshop.model.CartItem;
-import com.lms_schoolapp.greenteam.model.Product;
+import com.lms_schoolapp.greenteam.webshop.model.Product;
 import com.lms_schoolapp.greenteam.webshop.model.ShoppingCart;
 
 import java.util.List;

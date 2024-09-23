@@ -1,7 +1,9 @@
 package com.lms_schoolapp.greenteam.user.model;
 
 import com.lms_schoolapp.greenteam.model.*;
+import com.lms_schoolapp.greenteam.social.model.Post;
 import com.lms_schoolapp.greenteam.social.model.ThreadRoom;
+import com.lms_schoolapp.greenteam.webshop.model.Order;
 import com.lms_schoolapp.greenteam.webshop.model.ShoppingCart;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

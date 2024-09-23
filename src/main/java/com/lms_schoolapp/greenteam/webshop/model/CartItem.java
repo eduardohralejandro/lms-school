@@ -1,7 +1,5 @@
 package com.lms_schoolapp.greenteam.webshop.model;
 
-import com.lms_schoolapp.greenteam.model.Order;
-import com.lms_schoolapp.greenteam.model.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

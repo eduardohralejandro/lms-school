@@ -1,6 +1,6 @@
-package com.lms_schoolapp.greenteam.repository;
+package com.lms_schoolapp.greenteam.classroom.repository;
 
-import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
+import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

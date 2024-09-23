@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.webshop.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

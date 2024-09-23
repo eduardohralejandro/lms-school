@@ -1,8 +1,8 @@
 package com.lms_schoolapp.greenteam.user.service;
 
-import com.lms_schoolapp.greenteam.model.ClassSchoolSubject;
+import com.lms_schoolapp.greenteam.classroom.model.ClassSchoolSubject;
 import com.lms_schoolapp.greenteam.user.model.Student;
-import com.lms_schoolapp.greenteam.repository.ClassSchoolSubjectRepository;
+import com.lms_schoolapp.greenteam.classroom.repository.ClassSchoolSubjectRepository;
 import com.lms_schoolapp.greenteam.user.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

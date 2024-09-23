@@ -2,9 +2,11 @@ package com.lms_schoolapp.greenteam.cui;
 
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
+import com.lms_schoolapp.greenteam.webshop.model.Order;
+import com.lms_schoolapp.greenteam.webshop.model.Product;
 import com.lms_schoolapp.greenteam.webshop.service.CartItemService;
-import com.lms_schoolapp.greenteam.service.OrderService;
-import com.lms_schoolapp.greenteam.service.ProductService;
+import com.lms_schoolapp.greenteam.webshop.service.OrderService;
+import com.lms_schoolapp.greenteam.webshop.service.ProductService;
 import com.lms_schoolapp.greenteam.webshop.service.ShoppingCartService;
 import com.lms_schoolapp.greenteam.user.model.User;
 import com.lms_schoolapp.greenteam.webshop.model.CartItem;

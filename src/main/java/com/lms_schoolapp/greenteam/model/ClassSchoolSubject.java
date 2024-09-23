@@ -1,5 +1,7 @@
 package com.lms_schoolapp.greenteam.model;
 
+import com.lms_schoolapp.greenteam.user.model.Student;
+import com.lms_schoolapp.greenteam.user.model.Teacher;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;

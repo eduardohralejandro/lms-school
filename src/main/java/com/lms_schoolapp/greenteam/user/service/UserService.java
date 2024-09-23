@@ -1,9 +1,8 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.user.service;
 
-import com.lms_schoolapp.greenteam.model.User;
+import com.lms_schoolapp.greenteam.user.model.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService<T extends User> {
     T loginUser(String email, String password);

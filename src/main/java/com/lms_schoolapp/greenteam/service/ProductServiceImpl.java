@@ -1,13 +1,11 @@
 package com.lms_schoolapp.greenteam.service;
 
 import com.lms_schoolapp.greenteam.model.Product;
-import com.lms_schoolapp.greenteam.model.Teacher;
 import com.lms_schoolapp.greenteam.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

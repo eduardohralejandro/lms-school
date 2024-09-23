@@ -3,6 +3,9 @@ package com.lms_schoolapp.greenteam.cui;
 import com.lms_schoolapp.greenteam.cui.util.KeyboardUtility;
 import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.service.*;
+import com.lms_schoolapp.greenteam.user.model.Student;
+import com.lms_schoolapp.greenteam.user.model.User;
+import com.lms_schoolapp.greenteam.user.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

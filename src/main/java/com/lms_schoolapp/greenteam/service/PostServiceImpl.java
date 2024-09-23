@@ -1,12 +1,11 @@
 package com.lms_schoolapp.greenteam.service;
 
-import com.lms_schoolapp.greenteam.model.Forum;
 import com.lms_schoolapp.greenteam.model.Post;
 import com.lms_schoolapp.greenteam.model.ThreadRoom;
-import com.lms_schoolapp.greenteam.model.User;
+import com.lms_schoolapp.greenteam.user.model.User;
 import com.lms_schoolapp.greenteam.repository.PostRepository;
 import com.lms_schoolapp.greenteam.repository.ThreadRoomRepository;
-import com.lms_schoolapp.greenteam.repository.UserRepository;
+import com.lms_schoolapp.greenteam.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

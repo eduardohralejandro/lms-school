@@ -4,14 +4,14 @@ import com.lms_schoolapp.greenteam.model.*;
 import com.lms_schoolapp.greenteam.repository.CartItemRepository;
 import com.lms_schoolapp.greenteam.repository.OrderRepository;
 import com.lms_schoolapp.greenteam.repository.ShoppingCartRepository;
-import com.lms_schoolapp.greenteam.repository.UserRepository;
+import com.lms_schoolapp.greenteam.user.repository.UserRepository;
+import com.lms_schoolapp.greenteam.user.model.User;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

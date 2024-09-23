@@ -6,6 +6,7 @@ import com.lms_schoolapp.greenteam.service.CartItemService;
 import com.lms_schoolapp.greenteam.service.OrderService;
 import com.lms_schoolapp.greenteam.service.ProductService;
 import com.lms_schoolapp.greenteam.service.ShoppingCartService;
+import com.lms_schoolapp.greenteam.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

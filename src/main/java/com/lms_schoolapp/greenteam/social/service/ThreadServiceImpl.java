@@ -1,11 +1,11 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.social.service;
 
-import com.lms_schoolapp.greenteam.model.Forum;
+import com.lms_schoolapp.greenteam.social.model.Forum;
 import com.lms_schoolapp.greenteam.model.ForumType;
-import com.lms_schoolapp.greenteam.model.ThreadRoom;
+import com.lms_schoolapp.greenteam.social.model.ThreadRoom;
 import com.lms_schoolapp.greenteam.user.model.User;
-import com.lms_schoolapp.greenteam.repository.ForumRepository;
-import com.lms_schoolapp.greenteam.repository.ThreadRoomRepository;
+import com.lms_schoolapp.greenteam.social.repository.ForumRepository;
+import com.lms_schoolapp.greenteam.social.repository.ThreadRoomRepository;
 import com.lms_schoolapp.greenteam.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

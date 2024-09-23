@@ -1,8 +1,8 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.social.service;
 
-import com.lms_schoolapp.greenteam.model.Forum;
+import com.lms_schoolapp.greenteam.social.model.Forum;
 import com.lms_schoolapp.greenteam.model.ForumType;
-import com.lms_schoolapp.greenteam.repository.ForumRepository;
+import com.lms_schoolapp.greenteam.social.repository.ForumRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

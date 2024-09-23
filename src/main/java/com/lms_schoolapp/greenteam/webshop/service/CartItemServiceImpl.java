@@ -1,11 +1,11 @@
-package com.lms_schoolapp.greenteam.service;
+package com.lms_schoolapp.greenteam.webshop.service;
 
-import com.lms_schoolapp.greenteam.model.CartItem;
+import com.lms_schoolapp.greenteam.webshop.model.CartItem;
 import com.lms_schoolapp.greenteam.model.Product;
-import com.lms_schoolapp.greenteam.model.ShoppingCart;
-import com.lms_schoolapp.greenteam.repository.CartItemRepository;
+import com.lms_schoolapp.greenteam.webshop.model.ShoppingCart;
+import com.lms_schoolapp.greenteam.webshop.repository.CartItemRepository;
 import com.lms_schoolapp.greenteam.repository.ProductRepository;
-import com.lms_schoolapp.greenteam.repository.ShoppingCartRepository;
+import com.lms_schoolapp.greenteam.webshop.repository.ShoppingCartRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.lms_schoolapp.greenteam.model;
+package com.lms_schoolapp.greenteam.webshop.model;
 
 import com.lms_schoolapp.greenteam.user.model.User;
 import jakarta.persistence.*;

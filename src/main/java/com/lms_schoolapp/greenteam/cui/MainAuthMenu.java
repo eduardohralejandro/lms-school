@@ -122,7 +122,7 @@ public class MainAuthMenu {
         String firstName = askForFirstName();
         String lastName = askForLastName();
         String email = askForEmail();
-        String password = askForPassword();
+        String password = askForPassword().trim();
         Address address = askForAddress();
         String telephone = askForTelephone();
         UserType userType = askForUsertype();
@@ -147,8 +147,8 @@ public class MainAuthMenu {
 
     public LoginResponse<User> startLoginUser() {
         System.out.println("Provide credentials to login");
-        String email = askForEmail();
-        String password = askForPassword();
+        String email = askForEmail().trim();
+        String password = askForPassword().trim();
         LoginResponse<User> userToLogin = userService.loginUser(email, password);
         while (!userToLogin.isSuccess()) {
             System.out.printf("Error: %s\n", userToLogin.getMessage());
